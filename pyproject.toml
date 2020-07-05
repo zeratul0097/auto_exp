@@ -7,6 +7,7 @@ authors = ["zeratul0097 <zeratul0097@gmail.com>"]
 [tool.poetry.dependencies]
 python = "3.8.2"
 scrapy = "^2.2.0"
+flask = "^1.1.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^4.6"
