@@ -10,9 +10,9 @@ def main():
 
 @app.route('/crawl')
 def start_crawler():
-    a = system('python -m scrapy crawl yy')
-    return jsonify({'result': a})
+    system('python -m scrapy crawl yy')
+    return jsonify({'result': 'Task created'})
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    app.run()
