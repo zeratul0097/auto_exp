@@ -19,11 +19,5 @@ setup(
     install_requires=[
         'scrapy',
         'w3lib',
-        'pymongo',
-        'pylint',
-        'autopep8',
-        'rope',
-        'python-dotenv',
-        'shub'
     ]
 )

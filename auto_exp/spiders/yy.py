@@ -3,7 +3,6 @@ from os import getenv
 from scrapy import Request, Spider
 from scrapy.http.response import Response
 from scrapy.loader import ItemLoader
-from dotenv import load_dotenv
 
 from auto_exp.items import BookInfo
 from auto_exp.constants.common_constants import LAST_CHAPTER, SHORT_NAME, CHAPTER_INDEX
@@ -11,8 +10,7 @@ from auto_exp.constants.yy_constants import *
 from auto_exp.utilities.yy_utilities import get_book_name_from_url
 
 
-load_dotenv(dotenv_path='.env')
-COOKIE = getenv('COOKIE')
+YY_COOKIE = '__cfduid=d75308432a571f64d018f33fa1deadb921592180203; csrftoken=1Wcp0A7at8swG2RGDDnOqy2xsX0MmdjDF2h8hfHTWgSp5PgVDxJ9PgVGyz5IgtVz; truyenyy_sessionid=7ab96mchch3ynoqb0fn5i0thjcnzyj0i'
 
 
 class YYSpider(Spider):
@@ -22,7 +20,7 @@ class YYSpider(Spider):
         'LOG_ENABLED': False,
         'DEFAULT_REQUEST_HEADERS': {
             'accept': '*/*',
-            'cookie': COOKIE,
+            'cookie': YY_COOKIE,
             'upgrade-insecure-requests': 1,
             'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'
         }
@@ -136,8 +134,9 @@ class YYSpider(Spider):
                     dont_filter=True
                 )
 
-    def parse_chapter(self, response, short_name, chapter_index):
+    def parse_chapter(self, response: Response, short_name, chapter_index):
         yield {
             SHORT_NAME: short_name,
-            CHAPTER_INDEX: chapter_index
+            CHAPTER_INDEX: chapter_index,
+            'cookie': response.request.headers['cookie']
         }
